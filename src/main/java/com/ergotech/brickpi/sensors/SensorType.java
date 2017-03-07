@@ -6,7 +6,7 @@ package com.ergotech.brickpi.sensors;
  * @author sdaubin
  *
  */
-public enum SensorType {
+public enum SensorType implements ISensorType {
     
     Raw(                    0, 10),
     LightOff(               0, 10),
@@ -91,7 +91,8 @@ public enum SensorType {
     /**
      * IR Remote Control, 0 - 11
      */
-    EV3IRRemote(63,16);  //TYPE_SENSOR_EV3_INFRARED_M2 = 63;
+    //16 * 4 ?
+    EV3IRRemote(63,64);  //TYPE_SENSOR_EV3_INFRARED_M2 = 63;
     //unused?
     // TYPE_SENSOR_EV3_INFRARED_M3 = 64;
     // TYPE_SENSOR_EV3_INFRARED_M4 = 65;
@@ -106,11 +107,12 @@ public enum SensorType {
         this.decodeBitCount = decodeBitCount;
     }
 
-    byte getType() {
+    //altered to conform to interface
+    public byte getType() {
         return type;
     }
-
-    int getDecodeBitCount() {
+    //altered to conform to interface
+    public int getDecodeBitCount() {
         return decodeBitCount;
     }
 }

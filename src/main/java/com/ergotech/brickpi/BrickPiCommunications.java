@@ -292,6 +292,8 @@ public abstract class BrickPiCommunications {
             serialTransactionWithRetry(counter, packet, 2500);
             // should probably check the response here...
         }
+	//Tom - interesting, we spin up a thread for each BP
+	//      stored in scheduledPoller
         // set up the polling thread
         if (updateDelay > 0) {
             Runnable update = new Runnable() {
@@ -333,7 +335,12 @@ public abstract class BrickPiCommunications {
             // bitset need to be zeroed.
             pollingData.clear(0, 2);
             startingBitLocation += 2;  // account for these bits.
+	    //tom - traverse all the motors, ask them to encode their bytes into
+	    //the pollingdata at 10-bit offsets
+	    
             for (int motorCount = 0; motorCount < 2; motorCount++) {
+		//tom - this looks like an obfuscated way to address our motors
+		//while maintaining indices....ugh...indexing overhead :(
                 Motor motor = motors[counter * 2 + motorCount];
                 if (motor != null) {
                     // request that each motor encode itself into the packet.
@@ -344,10 +351,15 @@ public abstract class BrickPiCommunications {
                     startingBitLocation += 10;
                 }
             }
+	    // Tom - why do we only count up to sensorCount of 2? because we're using it
+	    // for janky indexing bs.
+	    // For most of these, we don't appear to be encoding anything...
             for (int sensorCount = 0; sensorCount < 2; sensorCount++) {
                 Sensor currentSensor = sensorType[counter * 2 + sensorCount];
                 if (currentSensor != null) {
                     // request that each sensor encode itself into the packet.
+		    // tom - note , the default here is to do nothing, returns the next place
+		    // to write bits to.
                     startingBitLocation = currentSensor.encodeToValueRequest(pollingData, startingBitLocation);
                 }
             }
