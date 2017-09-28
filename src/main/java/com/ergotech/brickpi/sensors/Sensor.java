@@ -140,9 +140,8 @@ public class Sensor {
      * The current value of the sensor.
      */
     protected volatile int value;
-
-    //changed to use generic interface
-    private final ISensorType sensorType;
+    
+    private final SensorType sensorType;
 
     /**
      * Returns the type of this sensor.
@@ -151,12 +150,11 @@ public class Sensor {
         return sensorType.getType();
     }
 
-    //changed to use generic interface
     /**
      * @param sensorType The type of this sensor. 
      * @param decodeBitLength The number of bits to decode for this sensor's value.
      */
-    public Sensor(ISensorType sensorType) {
+    public Sensor(SensorType sensorType) {
         this.sensorType = sensorType;
     }
 
