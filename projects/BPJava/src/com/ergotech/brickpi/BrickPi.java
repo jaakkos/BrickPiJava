@@ -71,7 +71,7 @@ public class BrickPi extends BrickPiCommunications {
     public BrickPi(String device, int baudRate) throws IOException {
         try {
             serial = SerialFactory.createInstance();
-            //System.out.println ("Port opening... "  + com.pi4j.wiringpi.Serial.serialOpen("/dev/ttyAMA0", 500000));
+            System.out.println ("Port opening... "  + com.pi4j.wiringpi.Serial.serialOpen("/dev/ttyAMA0", 500000));
             System.out.println("Opening Serial Port " + device + ':' + baudRate);
             serial.open(device, baudRate);
             System.out.println("port open: " + serial.isOpen());

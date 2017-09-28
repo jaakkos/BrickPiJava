@@ -236,7 +236,7 @@ public class Motor {
             if (currentEncoderValue != Integer.MAX_VALUE) {
                 double readingDifference = currentEncoderValue - tmpEncoderValue;
                 long timeDifference = currentTime - lastReadingTime;
-                //System.out.println(" Motor Speed " + readingDifference + " " + timeDifference);
+                System.out.println(" Motor Speed " + readingDifference + " " + timeDifference);
                 double immediateSpeed = Math.abs(readingDifference / timeDifference / ticksPerRevolution * 1000 * 60);
 //            // could run a little low-pass filtering here, but it needs to be corrected
 //            // for direction changes, etc.  - Just set currentEncoderValue and currentSpeed when speed or direction are set

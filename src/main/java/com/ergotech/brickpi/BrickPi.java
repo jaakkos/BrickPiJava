@@ -104,15 +104,15 @@ public class BrickPi extends BrickPiCommunications {
         toSend[0] = destinationAddress;
         toSend[1] = (byte) (checksum & 0xFF);  // checksum...
         toSend[2] = (byte) (packet.length & 0xFF);
-        if (DEBUG_LEVEL > 0) {
-            StringBuffer output = new StringBuffer();
-            output.append("Sending");
-            for (byte toAdd : toSend) {
-                output.append(" ");
-                output.append(Integer.toHexString(toAdd & 0xFF));
-            }
-            System.out.println(output.toString());
+
+        StringBuffer output = new StringBuffer();
+        output.append("Sending");
+        for (byte toAdd : toSend) {
+            output.append(" ");
+            output.append(Integer.toHexString(toAdd & 0xFF));
         }
+        System.out.println(output.toString());
+
         serial.write(toSend);
         //serial.write(packet);
     }
@@ -128,7 +128,7 @@ public class BrickPi extends BrickPiCommunications {
 
         int delay = timeout / 5;  // we'll wait a maximum of timeout
         while (serial.availableBytes() < 2 && delay-- >= 0) { // we need at least the checksum and bytecount (2 bytes)
-            LOGGER.debug("Available: {}", serial.availableBytes());
+            LOGGER.info("Available: {}", serial.availableBytes());
             try {
                 Thread.sleep(5);  // 5ms
 

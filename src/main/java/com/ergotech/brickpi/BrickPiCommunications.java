@@ -215,7 +215,7 @@ public abstract class BrickPiCommunications {
     public <T extends Sensor> T getSensor(SensorPort sensorPort) {
         int port = sensorPort.getPort();
         if (sensorType[port] == null) {
-            LOGGER.debug("Uninitialized sensor: {}", port);
+            LOGGER.info("Uninitialized sensor: {}", port);
             sensorType[port] = new Sensor(SensorType.Raw);
         }
         return (T) sensorType[port];
