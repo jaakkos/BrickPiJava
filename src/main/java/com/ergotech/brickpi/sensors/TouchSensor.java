@@ -34,7 +34,7 @@ public class TouchSensor extends Sensor {
      * Returns the 1 or 0 for consistency with the sensor interface.
      */
     public int getValue() {
-        return getValue() > 0 ? 1 : 0;
+        return super.getValue() > 0 ? 1 : 0;
     }
 
 
